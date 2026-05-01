@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Studio Pro - Manhwa Edition (No Bottom Ads)</title>
+    <title>Studio Pro - Manhwa Edition</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -20,26 +20,34 @@
             overflow: hidden; transition: 0.5s; user-select: none;
         }
         
-        /* حاوية الفيديو - تأخذ الشاشة كاملة */
+        /* حاوية الفيديو */
         #videoContainer {
             position: fixed; inset: 0; z-index: 1; background: #000;
             display: flex; justify-content: center; align-items: center;
         }
         #shortsFrame, #localVideo { width: 100%; height: 100%; border: none; display: none; object-fit: cover; }
         
-        /* خلفية الواتساب التزيينية */
+        /* خلفية تزيينية */
         #wp-bg { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: var(--wp); 
                  background-image: url('https://web.whatsapp.com/img/bg-chat-tile-dark_a4be512e719549d10e05527f6a012d27.png'); }
         
-        /* منطقة التفاعل العلوي */
-        #sT { position: fixed; top: 0; left: 0; width: 60px; height: 60px; z-index: 9999; cursor: pointer; }
+        /* منطقة الإعلانات العلوية */
+        .ad-top-zone { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px; 
+            z-index: 10001; display: flex; justify-content: center; align-items: center; 
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* زر الإدارة السري (مخفي) */
+        #sT { position: fixed; top: 0; left: 0; width: 60px; height: 60px; z-index: 10002; cursor: pointer; }
+        
         #subC { position: fixed; top: 75px; right: 15px; background: var(--pnl); border: 1px solid var(--pk); padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; z-index: 1000; }
         
         /* الأزرار الجانبية */
         .node { position: fixed; width: 50px; height: 50px; background: var(--pnl); border: 2px solid var(--p); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; color: var(--p); transition: 0.3s; }
         .node:active { transform: scale(0.8); }
         
-        /* لوحات التحكم الزجاجية */
+        /* لوحات التحكم */
         .glass { position: fixed; background: var(--pnl); border: 1px solid var(--p); border-radius: 20px; padding: 15px; display: none; z-index: 9000; flex-direction: column; gap: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); right: 80px; width: 220px; }
         
         /* منطقة الرموز التعبيرية */
@@ -49,15 +57,23 @@
         
         input, button { padding: 10px; border-radius: 10px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: var(--txt); outline: none; }
         button { cursor: pointer; font-weight: bold; background: #00a884; color: white; border: none; }
-
-        /* منطقة الإعلانات - علوية فقط */
-        .ad-top-zone { position: fixed; top: 0; left: 0; width: 100%; height: 60px; z-index: 10001; display: flex; justify-content: center; align-items: center; }
     </style>
 </head>
 <body class="dark-theme">
 
     <div class="ad-top-zone">
-        <div id="container-00e55bc0936560b403e88e60248cee97"></div>
+        <div id="container-00e55bc0936560b403e88e60248cee97">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '00e55bc0936560b403e88e60248cee97',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/00e55bc0936560b403e88e60248cee97/invoke.js"></script>
+        </div>
     </div>
 
     <div id="sT"></div>
@@ -181,7 +197,6 @@
 
         const UI = {
             openAd: () => { 
-                // تفتح الإعلان في نافذة جديدة فقط لضمان عدم تغطية الأسفل
                 window.open(ADSTERRA_LINK, '_blank'); 
             },
             toggle: (id) => {
@@ -201,7 +216,6 @@
             }
         };
 
-        // إنشاء شبكة الإيموجي
         const emojis = ["💜","💌","💣","🫀","💎","😍","😂","🤣","😻","🔥","✨","⭐","🙈","❤️","💖"];
         const grid = document.getElementById("emojiGrid");
         emojis.forEach(e => {
@@ -214,7 +228,6 @@
             grid.appendChild(btn);
         });
 
-        // تفاعل المستخدم الأول لتفعيل الصوت
         document.body.addEventListener('click', () => {
             if(!firstClick) {
                 const local = document.getElementById("localVideo");
@@ -225,7 +238,6 @@
             }
         });
 
-        // تفعيل لوحة الإدارة عند النقر 5 مرات في الزاوية العلوية اليسرى
         document.getElementById('sT').onclick = () => {
             _sec++; if(_sec >= 5) { UI.toggle('pAdmin'); _sec = 0; }
             setTimeout(() => _sec = 0, 2000);
