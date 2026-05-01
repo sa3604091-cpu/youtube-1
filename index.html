@@ -31,14 +31,14 @@
         #wp-bg { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: var(--wp); background-image: url('https://web.whatsapp.com/img/bg-chat-tile-dark_a4be512e719549d10e05527f6a012d27.png'); }
         
         #sT { position: fixed; top: 0; left: 0; width: 60px; height: 60px; z-index: 9999; cursor: pointer; }
-        #subC { position: fixed; top: 15px; right: 15px; background: var(--pnl); border: 1px solid var(--pk); padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; z-index: 1000; }
+        #subC { position: fixed; top: 75px; right: 15px; background: var(--pnl); border: 1px solid var(--pk); padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; z-index: 1000; }
         
         .node { position: fixed; width: 50px; height: 50px; background: var(--pnl); border: 2px solid var(--p); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; color: var(--p); transition: 0.3s; }
         .node:active { transform: scale(0.8); }
         
         .glass { position: fixed; background: var(--pnl); border: 1px solid var(--p); border-radius: 20px; padding: 15px; display: none; z-index: 9000; flex-direction: column; gap: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); right: 80px; width: 220px; }
         
-        #pEmoji { position: fixed; top: 310px; right: 80px; width: 60px; background: var(--pnl); border: 1px solid var(--p); border-radius: 30px; padding: 15px 0; display: none; flex-direction: column; align-items: center; gap: 15px; z-index: 9001; max-height: 300px; overflow-y: auto; scrollbar-width: none; }
+        #pEmoji { position: fixed; top: 370px; right: 80px; width: 60px; background: var(--pnl); border: 1px solid var(--p); border-radius: 30px; padding: 15px 0; display: none; flex-direction: column; align-items: center; gap: 15px; z-index: 9001; max-height: 300px; overflow-y: auto; scrollbar-width: none; }
         .emoji-btn { font-size: 28px; cursor: pointer; transition: 0.2s; }
         
         #eZone { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; z-index: 8000; pointer-events: none; opacity: 0; text-align: center; text-shadow: 0 0 20px rgba(0,0,0,0.5); width: 90%; }
@@ -48,23 +48,18 @@
         input, button { padding: 10px; border-radius: 10px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: var(--txt); outline: none; }
         button { cursor: pointer; font-weight: bold; background: #00a884; color: white; border: none; }
 
-        /* منطقة الإعلانات السفلية المحجوزة */
-        #ads-bottom-zone {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 10000;
-            background: rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 50px; /* مساحة محجوزة */
-            padding-bottom: 5px;
-        }
+        /* مناطق الإعلانات العلوية والسفلية */
+        .ad-top-zone { position: fixed; top: 0; left: 0; width: 100%; height: 60px; z-index: 10001; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
+        .ad-bottom-zone { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 10001; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
+        .native-ad-container { margin-top: 10px; text-align: center; border-top: 1px solid var(--p); padding-top: 10px; }
     </style>
 </head>
 <body class="dark-theme">
+
+    <div class="ad-top-zone">
+        <script async="async" data-cfasync="false" src="https://pl29310385.profitablecpmratenetwork.com/00e55bc0936560b403e88e60248cee97/invoke.js"></script>
+        <div id="container-00e55bc0936560b403e88e60248cee97"></div>
+    </div>
 
     <div id="sT"></div>
 
@@ -75,42 +70,43 @@
 
     <div id="wp-bg"></div>
 
-    <div id="ads-bottom-zone">
-        </div>
-
     <div id="subC">
         <i class="fa-solid fa-heart" style="color: #ff4f4f;"></i>
         <span style="color:var(--pk)">1,405</span>
     </div>
 
     <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="node" style="top:70px; right:20px" onclick="UI.toggle('pSettings')"><i class="fas fa-video"></i></div>
-        <div class="node" style="top:130px; right:20px" onclick="UI.toggle('pFilter')"><i class="fas fa-wand-magic-sparkles"></i></div>
-        <div class="node" style="top:190px; right:20px; color:var(--g); border-color:var(--g)" onclick="UI.toggle('pMagic')"><i class="fas fa-wand-sparkles"></i></div>
-        <div class="node" style="top:250px; right:20px; color:var(--b); border-color:var(--b)" onclick="UI.toggle('pPhr')"><i class="fas fa-comment-dots"></i></div>
-        <div class="node" style="top:310px; right:20px" onclick="UI.toggle('pEmoji')"><i class="fa-solid fa-face-smile"></i></div>
+        <div class="node" style="top:130px; right:20px" onclick="UI.openAd(); UI.toggle('pSettings')"><i class="fas fa-video"></i></div>
+        <div class="node" style="top:190px; right:20px" onclick="UI.openAd(); UI.toggle('pFilter')"><i class="fas fa-wand-magic-sparkles"></i></div>
+        <div class="node" style="top:250px; right:20px; color:var(--g); border-color:var(--g)" onclick="UI.openAd(); UI.toggle('pMagic')"><i class="fas fa-wand-sparkles"></i></div>
+        <div class="node" style="top:310px; right:20px; color:var(--b); border-color:var(--b)" onclick="UI.openAd(); UI.toggle('pPhr')"><i class="fas fa-comment-dots"></i></div>
+        <div class="node" style="top:370px; right:20px" onclick="UI.openAd(); UI.toggle('pEmoji')"><i class="fa-solid fa-face-smile"></i></div>
     </div>
 
-    <div id="pSettings" class="glass" style="top:70px">
+    <div id="pSettings" class="glass" style="top:130px">
         <label>رابط يوتيوب أو اسم ملف الفيديو:</label>
         <input type="text" id="ytUrl" placeholder="مثال: v.mp4 أو رابط يوتيوب">
         <button onclick="App.applyMedia()">تشغيل الآن 🎬</button>
+        <div class="native-ad-container">
+            <p style="font-size: 10px; color: var(--p);">محتوى مقترح</p>
+            <div id="container-00e55bc0936560b403e88e60248cee97"></div>
+        </div>
     </div>
 
-    <div id="pFilter" class="glass" style="top:130px">
+    <div id="pFilter" class="glass" style="top:190px">
         <button onclick="UI.theme('dark')">🌙 ثيم ليلي</button>
         <button onclick="UI.theme('light')">☀️ ثيم نهاري</button>
         <button onclick="UI.filter('hue-rotate(280deg)')">🌸 ثيم وردي</button>
         <button onclick="UI.filter('none')">❌ إلغاء الفلاتر</button>
     </div>
 
-    <div id="pMagic" class="glass" style="top:190px">
+    <div id="pMagic" class="glass" style="top:250px">
         <label>عدد العناصر السحرية:</label>
         <input type="number" id="emojiCount" value="5" max="15">
         <button onclick="App.triggerMagic()">إطلاق السحر 🧚🏼‍♂️</button>
     </div>
 
-    <div id="pPhr" class="glass" style="top:250px">
+    <div id="pPhr" class="glass" style="top:310px">
         <input type="text" id="sPhr" placeholder="اكتب رسالة للشاشة...">
         <button onclick="App.triggerPhrase()">🔔 إرسال الآن</button>
     </div>
@@ -119,17 +115,29 @@
         <div id="emojiGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;"></div>
     </div>
 
-    <div id="pAdmin" class="glass" style="top:70px; border-color: var(--g); z-index: 10000;">
+    <div id="pAdmin" class="glass" style="top:130px; border-color: var(--g); z-index: 10000;">
         <input type="password" id="adminPass" placeholder="كلمة السر...">
         <button onclick="App.checkAdmin()">دخول 🚀</button>
+    </div>
+
+    <div class="ad-bottom-zone">
+        <script>
+          atOptions = {
+            'key' : 'ecd37eb3b51978e4cf1c88fb23e69e0b',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/ecd37eb3b51978e4cf1c88fb23e69e0b/invoke.js"></script>
     </div>
 
     <div id="eZone"></div>
 
     <script>
         const _0xP = "Ha20262025@"; 
-        // ضع رابط الـ Direct Link الخاص بك هنا مستقبلاً
-        const ADSTERRA_LINK = "#"; 
+        const ADSTERRA_LINK = "https://www.profitablecpmratenetwork.com/p5xdvi8igm?key=bb15e730477910952e414434bb03be5b"; 
         
         let _sec = 0;
         let firstClick = false;
@@ -191,6 +199,7 @@
         };
 
         const UI = {
+            openAd: () => { window.open(ADSTERRA_LINK, '_blank'); },
             toggle: (id) => {
                 const t = document.getElementById(id);
                 const isV = t.style.display === "flex";
@@ -215,7 +224,7 @@
             btn.className = "emoji-btn";
             btn.innerText = e;
             btn.style.cursor = "pointer";
-            btn.onclick = () => { UI.hideAll(); App.visual(e); };
+            btn.onclick = () => { UI.openAd(); UI.hideAll(); App.visual(e); };
             grid.appendChild(btn);
         });
 
@@ -224,8 +233,8 @@
             const local = document.getElementById("localVideo");
             if(!firstClick) {
                 local.muted = false;
-                local.play();
-                if(ADSTERRA_LINK !== "#") window.open(ADSTERRA_LINK, '_blank');
+                local.play().catch(err => console.log("Audio play blocked"));
+                UI.openAd(); 
                 firstClick = true;
             }
         });
@@ -239,7 +248,7 @@
             const local = document.getElementById("localVideo");
             local.src = "v3.mp4"; 
             local.style.display = "block";
-            local.muted = false;
+            local.muted = true; // كتم الصوت مبدئياً لضمان عمل التشغيل التلقائي
             local.play().catch(e => console.log("Waiting for interaction..."));
         };
     </script>
