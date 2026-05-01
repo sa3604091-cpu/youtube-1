@@ -48,9 +48,8 @@
         input, button { padding: 10px; border-radius: 10px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: var(--txt); outline: none; }
         button { cursor: pointer; font-weight: bold; background: #00a884; color: white; border: none; }
 
-        /* مناطق الإعلانات العلوية والسفلية */
+        /* منطقة الإعلانات العلوية */
         .ad-top-zone { position: fixed; top: 0; left: 0; width: 100%; height: 60px; z-index: 10001; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
-        .ad-bottom-zone { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 10001; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
         .native-ad-container { margin-top: 10px; text-align: center; border-top: 1px solid var(--p); padding-top: 10px; }
     </style>
 </head>
@@ -118,19 +117,6 @@
     <div id="pAdmin" class="glass" style="top:130px; border-color: var(--g); z-index: 10000;">
         <input type="password" id="adminPass" placeholder="كلمة السر...">
         <button onclick="App.checkAdmin()">دخول 🚀</button>
-    </div>
-
-    <div class="ad-bottom-zone">
-        <script>
-          atOptions = {
-            'key' : 'ecd37eb3b51978e4cf1c88fb23e69e0b',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/ecd37eb3b51978e4cf1c88fb23e69e0b/invoke.js"></script>
     </div>
 
     <div id="eZone"></div>
@@ -228,7 +214,6 @@
             grid.appendChild(btn);
         });
 
-        // تشغيل الصوت والـ Direct Link عند أول لمسة
         document.body.addEventListener('click', () => {
             const local = document.getElementById("localVideo");
             if(!firstClick) {
@@ -248,7 +233,7 @@
             const local = document.getElementById("localVideo");
             local.src = "v3.mp4"; 
             local.style.display = "block";
-            local.muted = true; // كتم الصوت مبدئياً لضمان عمل التشغيل التلقائي
+            local.muted = true;
             local.play().catch(e => console.log("Waiting for interaction..."));
         };
     </script>
