@@ -23,11 +23,13 @@
         #videoContainer {
             position: fixed; inset: 0; z-index: 1; background: #000;
             display: flex; justify-content: center; align-items: center;
+            bottom: 55px; /* مساحة للإعلان السفلي */
         }
         #shortsFrame, #localVideo { width: 100%; height: 100%; border: none; display: none; object-fit: cover; }
         
         #wp-bg { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: var(--wp); background-image: url('https://web.whatsapp.com/img/bg-chat-tile-dark_a4be512e719549d10e05527f6a012d27.png'); }
         
+        /* المنطقة المخفية للوحة الإدارة */
         #sT { position: fixed; top: 0; left: 0; width: 60px; height: 60px; z-index: 10002; cursor: pointer; }
         
         #subC { position: fixed; top: 15px; right: 15px; background: var(--pnl); border: 1px solid var(--pk); padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; z-index: 1000; }
@@ -48,12 +50,12 @@
         input, button { padding: 10px; border-radius: 10px; border: 1px solid #444; background: rgba(255,255,255,0.05); color: var(--txt); outline: none; }
         button { cursor: pointer; font-weight: bold; background: #00a884; color: white; border: none; }
 
-        /* منطقة الإعلان السفلي */
         .ad-bottom-zone {
             position: fixed; bottom: 0; left: 0; width: 100%; height: 55px;
             z-index: 10001; display: flex; justify-content: center; align-items: center;
-            background: rgba(0,0,0,0.2);
+            background: #000;
         }
+        .native-ad-box { margin-top: 10px; text-align: center; }
     </style>
 
     <script type='text/javascript' src='//www.highperformanceformat.com/bb/15/e7/bb15e730477910952e414434bb03be5b.js'></script>
@@ -83,37 +85,45 @@
     <div id="pSettings" class="glass" style="top:70px">
         <input type="text" id="ytUrl" placeholder="v.mp4 أو رابط يوتيوب">
         <button onclick="App.applyMedia()">تشغيل الآن 🎬</button>
+        <div class="native-ad-box">
+            <div id="container-00e55bc0936560b403e88e60248cee97"></div>
+        </div>
     </div>
+
     <div id="pFilter" class="glass" style="top:130px">
         <button onclick="UI.theme('dark')">🌙 ثيم ليلي</button>
         <button onclick="UI.theme('light')">☀️ ثيم نهاري</button>
+        <button onclick="UI.filter('hue-rotate(280deg)')">🌸 ثيم وردي</button>
         <button onclick="UI.filter('none')">❌ إلغاء الفلاتر</button>
     </div>
+
     <div id="pMagic" class="glass" style="top:190px">
         <input type="number" id="emojiCount" value="5" max="15">
         <button onclick="App.triggerMagic()">إطلاق السحر 🧚🏼‍♂️</button>
     </div>
+
     <div id="pPhr" class="glass" style="top:250px">
-        <input type="text" id="sPhr" placeholder="اكتب رسالة...">
-        <button onclick="App.triggerPhrase()">🔔 إرسال</button>
+        <input type="text" id="sPhr" placeholder="اكتب رسالة للشاشة...">
+        <button onclick="App.triggerPhrase()">🔔 إرسال الآن</button>
     </div>
-    <div id="pEmoji" class="glass"><div id="emojiGrid"></div></div>
+
+    <div id="pEmoji" class="glass">
+        <div id="emojiGrid"></div>
+    </div>
 
     <div id="pAdmin" class="glass" style="top:70px; border-color: var(--g); z-index: 10000;">
         <h3 style="margin:0; color:var(--g)">لوحة الإدارة</h3>
-        <p style="font-size:12px">تم الدخول بنجاح</p>
+        <p style="font-size:12px">تم تفعيل وضع الوصول الآمن</p>
         <button onclick="UI.hideAll()">إغلاق</button>
     </div>
 
     <div id="eZone"></div>
 
     <div class="ad-bottom-zone">
-        <div id="container-00e55bc0936560b403e88e60248cee97">
-            <script type="text/javascript">
-                atOptions = { 'key' : '00e55bc0936560b403e88e60248cee97', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/00e55bc0936560b403e88e60248cee97/invoke.js"></script>
-        </div>
+        <script type="text/javascript">
+            atOptions = { 'key' : '00e55bc0936560b403e88e60248cee97', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/00e55bc0936560b403e88e60248cee97/invoke.js"></script>
     </div>
 
     <script>
@@ -148,15 +158,18 @@
                     local.src = input; local.play();
                 }
                 UI.hideAll();
+                App.visual("🎬");
             },
             visual: (emoji) => {
                 const z = document.getElementById("eZone");
-                z.innerText = emoji; z.classList.remove("pop"); 
+                z.innerText = emoji; 
+                z.style.fontSize = emoji.length > 5 ? "40px" : "150px";
+                z.classList.remove("pop"); 
                 void z.offsetWidth; z.classList.add("pop");
                 Sound.play();
             },
             triggerMagic: () => {
-                const items = ["🧚🏼‍♂️","✨","💎","⭐","🌈","🔥","⚡","🌟"];
+                const items = ["🧚🏼‍♂️","✨","💎","⭐","🌈","🔥","⚡","🌟","☄️"];
                 const count = document.getElementById('emojiCount').value;
                 const res = Array.from({length: count}, () => items[Math.floor(Math.random()*items.length)]).join('');
                 UI.hideAll(); App.visual(res);
@@ -190,7 +203,7 @@
             filter: (f) => { document.getElementById('videoContainer').style.filter = f; UI.hideAll(); }
         };
 
-        const emojis = ["💜","💌","💣","🫀","💎","😍","😂","🤣","🔥","✨","⭐","❤️","💖","🌈"];
+        const emojis = ["💜","💌","💣","🫀","💎","😍","😂","🤣","🔥","✨","⭐","❤️","💖","🌈","🙈","😻"];
         const grid = document.getElementById("emojiGrid");
         emojis.forEach(e => {
             let btn = document.createElement("div");
@@ -199,6 +212,7 @@
             grid.appendChild(btn);
         });
 
+        // لوحة الإدارة تظهر بعد 5 نقرات في الزاوية العلوية اليسرى
         document.getElementById('sT').onclick = () => {
             _sec++; if(_sec >= 5) { UI.toggle('pAdmin'); _sec = 0; }
             setTimeout(() => _sec = 0, 2000);
