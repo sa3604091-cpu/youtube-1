@@ -29,7 +29,6 @@
         
         #wp-bg { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: var(--wp); background-image: url('https://web.whatsapp.com/img/bg-chat-tile-dark_a4be512e719549d10e05527f6a012d27.png'); }
         
-        /* المنطقة المخفية للوحة الإدارة */
         #sT { position: fixed; top: 0; left: 0; width: 60px; height: 60px; z-index: 10002; cursor: pointer; }
         
         #subC { position: fixed; top: 15px; right: 15px; background: var(--pnl); border: 1px solid var(--pk); padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; z-index: 1000; }
@@ -55,7 +54,6 @@
             z-index: 10001; display: flex; justify-content: center; align-items: center;
             background: #000;
         }
-        .native-ad-box { margin-top: 10px; text-align: center; }
     </style>
 </head>
 <body class="dark-theme">
@@ -73,17 +71,17 @@
     </div>
 
     <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="node" style="top:70px; right:20px" onclick="UI.openAd(); UI.toggle('pSettings')"><i class="fas fa-video"></i></div>
-        <div class="node" style="top:130px; right:20px" onclick="UI.openAd(); UI.toggle('pFilter')"><i class="fas fa-wand-magic-sparkles"></i></div>
-        <div class="node" style="top:190px; right:20px; color:var(--g); border-color:var(--g)" onclick="UI.openAd(); UI.toggle('pMagic')"><i class="fas fa-wand-sparkles"></i></div>
-        <div class="node" style="top:250px; right:20px; color:var(--b); border-color:var(--b)" onclick="UI.openAd(); UI.toggle('pPhr')"><i class="fas fa-comment-dots"></i></div>
-        <div class="node" style="top:310px; right:20px" onclick="UI.openAd(); UI.toggle('pEmoji')"><i class="fa-solid fa-face-smile"></i></div>
+        <div class="node" style="top:70px; right:20px" onclick="UI.toggle('pSettings')"><i class="fas fa-video"></i></div>
+        <div class="node" style="top:130px; right:20px" onclick="UI.toggle('pFilter')"><i class="fas fa-wand-magic-sparkles"></i></div>
+        <div class="node" style="top:190px; right:20px; color:var(--g); border-color:var(--g)" onclick="UI.toggle('pMagic')"><i class="fas fa-wand-sparkles"></i></div>
+        <div class="node" style="top:250px; right:20px; color:var(--b); border-color:var(--b)" onclick="UI.toggle('pPhr')"><i class="fas fa-comment-dots"></i></div>
+        <div class="node" style="top:310px; right:20px" onclick="UI.toggle('pEmoji')"><i class="fa-solid fa-face-smile"></i></div>
     </div>
 
     <div id="pSettings" class="glass" style="top:70px">
         <input type="text" id="ytUrl" placeholder="v.mp4 أو رابط يوتيوب">
         <button onclick="App.applyMedia()">تشغيل الآن 🎬</button>
-        </div>
+    </div>
 
     <div id="pFilter" class="glass" style="top:130px">
         <button onclick="UI.theme('dark')">🌙 ثيم ليلي</button>
@@ -120,8 +118,6 @@
     </div>
 
     <script>
-        const ADSTERRA_LINK = "https://www.profitablecpmratenetwork.com/p5xdvi8igm?key=bb15e730477910952e414434bb03be5b";
-        const AD_COOLDOWN = 15000;
         let _sec = 0;
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
@@ -174,14 +170,6 @@
         };
 
         const UI = {
-            openAd: () => {
-                const currentTime = Date.now();
-                const lastSavedTime = localStorage.getItem('last_ad_ts') || 0;
-                if (currentTime - lastSavedTime > AD_COOLDOWN) {
-                    window.open(ADSTERRA_LINK, '_blank');
-                    localStorage.setItem('last_ad_ts', currentTime);
-                }
-            },
             toggle: (id) => {
                 const t = document.getElementById(id);
                 const isV = t.style.display === "flex";
@@ -201,11 +189,11 @@
         emojis.forEach(e => {
             let btn = document.createElement("div");
             btn.className = "emoji-btn"; btn.innerText = e;
-            btn.onclick = () => { UI.openAd(); UI.hideAll(); App.visual(e); };
+            // تم إزالة UI.openAd() من هنا أيضاً
+            btn.onclick = () => { UI.hideAll(); App.visual(e); };
             grid.appendChild(btn);
         });
 
-        // لوحة الإدارة تظهر بعد 5 نقرات في الزاوية العلوية اليسرى
         document.getElementById('sT').onclick = () => {
             _sec++; if(_sec >= 5) { UI.toggle('pAdmin'); _sec = 0; }
             setTimeout(() => _sec = 0, 2000);
